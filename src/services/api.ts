@@ -1,7 +1,7 @@
 import { useHttp } from '@/composables/useHttp';
 
 const baseUrl =
-  '/api/service-data/calculate-tools/exchange';
+  'https://www.yapikredi.com.tr/service-data/calculate-tools/exchange';
 
 interface ExchangeItem {
   code: string;
@@ -16,19 +16,21 @@ export const convertExchange = async (
 ): Promise<ExchangeItem | null> => {
   try {
     const { get } = useHttp();
-    const xml = await get(
-      `${baseUrl}?currency=${fromCurrency}&tocurrency=${toCurrency}&amount=${amount ?? 1}`,
-      {
-        responseType: 'xml',
-      }
-    );
+
+    const xml = await get(baseUrl, {
+      responseType: 'xml'
+    }, {
+      currency: fromCurrency,
+      tocurrency: toCurrency,
+      amount: (amount ?? 1).toString()
+    });
 
     const exchangeNode = xml.querySelector('ExchangeItems > Exchange');
     if (exchangeNode) {
       return {
         code: exchangeNode.getAttribute('Code') || '',
         buy: parseFloat(exchangeNode.getAttribute('Buy') || '0'),
-        sale: parseFloat(exchangeNode.getAttribute('Sale') || '0'),
+        sale: parseFloat(exchangeNode.getAttribute('Sale') || '0')
       };
     }
 

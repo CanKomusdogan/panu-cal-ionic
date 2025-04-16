@@ -1,5 +1,5 @@
 import { Capacitor } from '@capacitor/core';
-import { Http } from '@capacitor-community/http';
+import { Http, HttpParams } from '@capacitor-community/http';
 
 const isNative = Capacitor.getPlatform() !== 'web'
 
@@ -9,13 +9,15 @@ export function useHttp() {
     options?: {
       headers?: Record<string, string>
       responseType?: 'json' | 'text' | 'xml'
-    }
+    },
+    params?: HttpParams,
   ) {
     const responseType = options?.responseType || 'json'
 
     if (isNative) {
       const res = await Http.get({
         url,
+        params,
         headers: options?.headers ?? {}
       })
 

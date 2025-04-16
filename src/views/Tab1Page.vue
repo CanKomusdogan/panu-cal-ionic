@@ -36,6 +36,8 @@
         </template>
       </Suspense>
 
+      <hr>
+
       <div style="display: flex !important" class="ion-justify-content-center">
         <ion-img v-if="!isDark" style="max-width: 300px" src="/panulogo_dark.png" alt="Panu logo" />
         <ion-img v-else src="/panulogo.png" style="max-width: 300px" alt="Panu logo" />

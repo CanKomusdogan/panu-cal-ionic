@@ -13,15 +13,6 @@ export default defineConfig({
     legacy(),
     vueDevTools()
   ],
-  server: {
-    proxy: {
-      '/api': {
-        target: 'https://www.yapikredi.com.tr',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
-      }
-    }
-  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src')
