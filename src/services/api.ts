@@ -29,8 +29,8 @@ export const convertExchange = async (
     if (exchangeNode) {
       return {
         code: exchangeNode.getAttribute('Code') || '',
-        buy: parseFloat(exchangeNode.getAttribute('Buy') || '0'),
-        sale: parseFloat(exchangeNode.getAttribute('Sale') || '0')
+        buy: parseFloat((exchangeNode.getAttribute('Buy') || '0').replace(',', '.')),
+        sale: parseFloat((exchangeNode.getAttribute('Sale') || '0').replace(',', '.')),
       };
     }
 

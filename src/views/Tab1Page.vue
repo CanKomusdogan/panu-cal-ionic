@@ -2,7 +2,7 @@
     <ion-content :fullscreen="true">
       <ion-card>
         <ion-card-content>
-          <ion-input type="number" min="0" max="9007199254740991" :label="selectedCurrencySymbol + ' Tutar'" v-model.number="amount" clear-input />
+          <ion-input type="number" min="0" max="9007199254740991"  :label="selectedCurrencySymbol + ' Tutar'" label-placement="floating" fill="solid" v-model.number="amount" clear-input />
           <CurrencySegment :selected-currency="selectedCurrency" @update:selected-currency="selectedCurrency = $event" />
           <ion-row>
             <ion-col>

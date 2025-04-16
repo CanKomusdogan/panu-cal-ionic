@@ -6,10 +6,10 @@
         <ion-grid>
           <ion-row>
             <ion-col>
-              <ion-label>{{ '₺' }} {{ calculation.selectedCurrencyResult }}</ion-label>
+              <ion-label>{{ '₺' }} {{ formatCurrency(calculation.selectedCurrencyResult) }}</ion-label>
             </ion-col>
             <ion-col v-if="calculation.originalCurrencyResult">
-              <ion-label>{{ currencySymbol }} {{ calculation.originalCurrencyResult }}</ion-label>
+              <ion-label>{{ currencySymbol }} {{ formatCurrency(calculation.originalCurrencyResult) }}</ion-label>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -19,10 +19,10 @@
         <ion-grid>
           <ion-row>
             <ion-col>
-              <ion-label>{{ '₺' }} {{ calculation.selectedCurrencyResultVat }}</ion-label>
+              <ion-label>{{ '₺' }} {{ formatCurrency(calculation.selectedCurrencyResultVat) }}</ion-label>
             </ion-col>
             <ion-col v-if="calculation.originalCurrencyResultVat">
-              <ion-label>{{ currencySymbol }} {{ calculation.originalCurrencyResultVat }}</ion-label>
+              <ion-label>{{ currencySymbol }} {{ formatCurrency(calculation.originalCurrencyResultVat) }}</ion-label>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -35,6 +35,7 @@
 import Calculation from '@/types/Calculation';
 import { computed } from 'vue';
 import { currencySymbols } from '@/constants/currency';
+import { useCurrencyFormatter } from '@/composables/useCurrencyFormatter';
 
 const props = defineProps<{
   calculation: Calculation | null
@@ -45,4 +46,6 @@ const currencySymbol = computed(() =>
     ? currencySymbols[props.calculation.currency] || props.calculation.currency
     : ''
 );
+
+const { formatCurrency } = useCurrencyFormatter();
 </script>

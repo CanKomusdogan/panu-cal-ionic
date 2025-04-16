@@ -21,22 +21,22 @@ function calculateSellingPrice(
   switch (profitType) {
     case ProfitType.Rate:
       if (exchangeSale !== null) {
-        const sellingPrice = Number((exchangeSale * (1 + safeProfitRate / 100)).toFixed(2));
-        const sellingPriceOriginal = Number((cost * (1 + safeProfitRate / 100)).toFixed(2));
+        const sellingPrice = exchangeSale * (1 + safeProfitRate / 100);
+        const sellingPriceOriginal = cost * (1 + safeProfitRate / 100);
         return { sellingPrice, sellingPriceOriginal };
       } else {
-        const sellingPrice = Number((cost * (1 + safeProfitRate / 100)).toFixed(2));
+        const sellingPrice = cost * (1 + safeProfitRate / 100);
         const sellingPriceOriginal = 0;
         return { sellingPrice, sellingPriceOriginal };
       }
 
     case ProfitType.Amount:
       if (exchangeSale !== null) {
-        const sellingPrice = Number((exchangeSale + safeProfitAmount).toFixed(2));
-        const sellingPriceOriginal = Number((cost + safeProfitAmount).toFixed(2));
+        const sellingPrice = exchangeSale + safeProfitAmount;
+        const sellingPriceOriginal = cost + safeProfitAmount;
         return { sellingPrice, sellingPriceOriginal };
       } else {
-        const sellingPrice = Number((cost + safeProfitAmount).toFixed(2));
+        const sellingPrice = cost + safeProfitAmount;
         const sellingPriceOriginal = 0;
         return { sellingPrice, sellingPriceOriginal };
       }
@@ -48,8 +48,7 @@ function calculateSellingPrice(
 
 function calculateVat(amount: number, vatRate: number): number {
   const vatAmount = amount * vatRate / 100;
-  const totalAmount = amount + vatAmount;
-  return Number(totalAmount.toFixed(2));
+  return amount + vatAmount;
 }
 
 export { ProfitType, type PriceResult, calculateSellingPrice, calculateVat };
