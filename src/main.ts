@@ -1,8 +1,7 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router';
+import { createApp } from 'vue';
+import App from './App.vue';
 
-import { IonicVue } from '@ionic/vue';
+import * as IonComponents from '@ionic/vue';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/vue/css/core.css';
@@ -35,9 +34,18 @@ import '@ionic/vue/css/palettes/dark.system.css';
 import './theme/variables.css';
 
 const app = createApp(App)
-  .use(IonicVue)
-  .use(router);
+  .use(IonComponents.IonicVue);
 
-router.isReady().then(() => {
-  app.mount('#app');
+//register all Ionic components globally
+Object.entries(IonComponents).forEach(([key, component]) => {
+  if (
+    /^Ion[A-Z]\w+$/.test(key) &&
+    typeof component === 'object' &&
+    'name' in component
+  ) {
+    app.component(key, component as any);
+  }
 });
+
+
+app.mount('#app');
