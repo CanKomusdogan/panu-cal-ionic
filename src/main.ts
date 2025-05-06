@@ -1,7 +1,7 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 
-import * as IonComponents from '@ionic/vue';
+import { IonicVue } from '@ionic/vue';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/vue/css/core.css';
@@ -32,20 +32,50 @@ import '@ionic/vue/css/palettes/dark.system.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import {
+  IonApp,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardContent,
+  IonContent,
+  IonHeader,
+  IonToolbar,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonInput,
+  IonImg,
+  IonText,
+  IonLabel,
+  IonSegment,
+  IonSegmentButton,
+  IonTitle,
+  IonSpinner
+} from '@ionic/vue';
 
 const app = createApp(App)
-  .use(IonComponents.IonicVue);
+  .use(IonicVue);
 
-//register all Ionic components globally
-Object.entries(IonComponents).forEach(([key, component]) => {
-  if (
-    /^Ion[A-Z]\w+$/.test(key) &&
-    typeof component === 'object' &&
-    'name' in component
-  ) {
-    app.component(key, component as any);
-  }
-});
+app.component('IonApp', IonApp);
+app.component('IonGrid', IonGrid);
+app.component('IonRow', IonRow);
+app.component('IonCol', IonCol);
+app.component('IonCardHeader', IonCardHeader);
+app.component('IonCardTitle', IonCardTitle);
+app.component('IonCardContent', IonCardContent);
+app.component('IonHeader', IonHeader);
+app.component('IonToolbar', IonToolbar);
+app.component('IonContent', IonContent);
+app.component('IonCard', IonCard);
+app.component('IonInput', IonInput);
+app.component('IonImg', IonImg);
+app.component('IonText', IonText);
+app.component('IonLabel', IonLabel);
+app.component('IonSegment', IonSegment);
+app.component('IonSegmentButton', IonSegmentButton);
+app.component('IonTitle', IonTitle);
+app.component('IonSpinner', IonSpinner);
 
 
 app.mount('#app');

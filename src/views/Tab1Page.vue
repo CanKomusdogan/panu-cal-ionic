@@ -47,15 +47,17 @@
 </template>
 
 <script setup lang="ts">
-import CurrencySegment from '@/components/CurrencySegment.vue';
-import { computed, ref, watch } from 'vue';
-import VatSegment from '@/components/VatSegment.vue';
-import CalculationsCard from '@/components/CalculationsCard.vue';
+import { computed, defineAsyncComponent, ref, watch } from 'vue';
 import Calculation from '@/types/Calculation';
 import { allFilled, amountAndVatFilled } from '@/services/input-handling';
 import { currencySymbols } from '@/constants/currency';
-import StaticExchange from '@/components/StaticExchange.vue';
 import { useTheme } from '@/composables/useTheme';
+
+const CurrencySegment = defineAsyncComponent(() => import('@/components/CurrencySegment.vue'));
+const VatSegment = defineAsyncComponent(() => import('@/components/VatSegment.vue'));
+const CalculationsCard = defineAsyncComponent(() => import('@/components/CalculationsCard.vue'));
+const StaticExchange = defineAsyncComponent(() => import('@/components/StaticExchange.vue'));
+
 
 const { isDark } = useTheme();
 
