@@ -51,12 +51,28 @@ import {
   IonSegment,
   IonSegmentButton,
   IonTitle,
-  IonSpinner
+  IonSpinner,
+  IonActionSheet,
+  IonChip,
+  IonIcon,
+  IonSelect,
+  IonSelectOption,
+  IonButton,
+  IonMenuToggle,
+  IonCheckbox,
+  IonItem,
+  IonRange,
+  IonList,
+  IonMenu
 } from '@ionic/vue';
+import { i18n } from '@/services/i18n';
 
 const app = createApp(App)
   .use(IonicVue);
 
+app.use(i18n);
+
+// :O
 app.component('IonApp', IonApp);
 app.component('IonGrid', IonGrid);
 app.component('IonRow', IonRow);
@@ -76,6 +92,17 @@ app.component('IonSegment', IonSegment);
 app.component('IonSegmentButton', IonSegmentButton);
 app.component('IonTitle', IonTitle);
 app.component('IonSpinner', IonSpinner);
-
+app.component('IonActionSheet', IonActionSheet);
+app.component('IonChip', IonChip);
+app.component('IonIcon', IonIcon);
+app.component('IonSelect', IonSelect);
+app.component('IonSelectOption', IonSelectOption);
+app.component('IonButton', IonButton);
+app.component('IonMenuToggle', IonMenuToggle);
+app.component('IonCheckbox', IonCheckbox);
+app.component('IonItem', IonItem);
+app.component('IonRange', IonRange);
+app.component('IonList', IonList);
+app.component('IonMenu', IonMenu);
 
 app.mount('#app');

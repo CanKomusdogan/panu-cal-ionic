@@ -2,7 +2,7 @@
   <ion-card v-if="usdExchange || eurExchange">
     <ion-card-header class="ion-text-center">
       <ion-card-title>
-        Satış Kuru
+        {{ t('staticExchangeTitle') }}
       </ion-card-title>
     </ion-card-header>
     <ion-card-content class="ion-text-center">
@@ -23,9 +23,11 @@
 <script setup lang="ts">
 import { convertExchange } from '@/services/api';
 import { useCurrencyFormatter } from '@/composables/useCurrencyFormatter';
+import { useI18n } from 'vue-i18n';
 
 const usdExchange: number | null | undefined = (await convertExchange('USD', 'YTL'))?.sale;
 const eurExchange: number | null | undefined = (await convertExchange('EUR', 'YTL'))?.sale;
 
 const { formatCurrency } = useCurrencyFormatter();
+const { t } = useI18n();
 </script>

@@ -2,9 +2,9 @@ import { calculateSellingPrice, calculateVat, ProfitType } from '@/services/math
 import { convertExchange } from '@/services/api';
 import Calculation from '@/types/Calculation';
 
-export const allFilled = async (currency: string, amount: number, profitRate: number | null, profitAmount: number | null, vatRate: number): Promise<Calculation | null> => {
-  if (currency !== 'YTL') {
-    const exchange = await convertExchange(currency, 'YTL', amount);
+export const allFilled = async (baseCurrency: string, targetCurrency: string, amount: number, profitRate: number | null, profitAmount: number | null, vatRate: number): Promise<Calculation | null> => {
+  if (baseCurrency !== targetCurrency) {
+    const exchange = await convertExchange(baseCurrency, targetCurrency, amount);
     if (exchange) {
       const profitType =
         profitRate ? ProfitType.Rate :
@@ -23,7 +23,8 @@ export const allFilled = async (currency: string, amount: number, profitRate: nu
       const selectedCurrencyResultVat = calculateVat(result.sellingPrice, vatRate);
 
       return {
-        currency,
+        fromCurrency: baseCurrency,
+        toCurrency: targetCurrency,
         originalCurrencyResult: result.sellingPriceOriginal,
         selectedCurrencyResult: result.sellingPrice,
         originalCurrencyResultVat,
@@ -48,7 +49,8 @@ export const allFilled = async (currency: string, amount: number, profitRate: nu
     const selectedCurrencyResultVat = calculateVat(result.sellingPrice, vatRate);
 
     return {
-      currency,
+      fromCurrency: baseCurrency,
+      toCurrency: targetCurrency,
       originalCurrencyResult: result.sellingPriceOriginal,
       selectedCurrencyResult: result.sellingPrice,
       originalCurrencyResultVat,
@@ -59,15 +61,16 @@ export const allFilled = async (currency: string, amount: number, profitRate: nu
   return null;
 };
 
-export const amountAndVatFilled = async (currency: string, amount: number, vatRate: number): Promise<Calculation | null> => {
-  if (currency !== 'YTL') {
-    const exchange = await convertExchange(currency, 'YTL', amount);
+export const amountAndVatFilled = async (baseCurrency: string, targetCurrency: string, amount: number, vatRate: number): Promise<Calculation | null> => {
+  if (baseCurrency !== targetCurrency) {
+    const exchange = await convertExchange(baseCurrency, targetCurrency, amount);
     if (exchange) {
       const originalCurrencyResultVat = calculateVat(amount, vatRate);
       const selectedCurrencyResultVat = calculateVat(exchange.sale, vatRate);
 
       return {
-        currency,
+        fromCurrency: baseCurrency,
+        toCurrency: targetCurrency,
         originalCurrencyResult: amount,
         selectedCurrencyResult: exchange.sale,
         originalCurrencyResultVat,
@@ -78,7 +81,8 @@ export const amountAndVatFilled = async (currency: string, amount: number, vatRa
     const selectedCurrencyResultVat = calculateVat(amount, vatRate);
 
     return {
-      currency,
+      fromCurrency: baseCurrency,
+      toCurrency: targetCurrency,
       originalCurrencyResult: null,
       selectedCurrencyResult: amount,
       originalCurrencyResultVat: null,

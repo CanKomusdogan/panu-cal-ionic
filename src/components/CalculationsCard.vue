@@ -2,27 +2,28 @@
   <ion-card v-if="calculation">
     <ion-card-content class="ion-text-center">
       <div v-if="calculation.selectedCurrencyResult !== null">
-        <ion-text class="ion-">KDV'siz</ion-text>
+        <ion-text>{{ t('withoutVatCalculationTitle') }}</ion-text>
         <ion-grid>
           <ion-row>
-            <ion-col>
-              <ion-label>{{ '₺' }} {{ formatCurrency(calculation.selectedCurrencyResult) }}</ion-label>
-            </ion-col>
             <ion-col v-if="calculation.originalCurrencyResult">
-              <ion-label>{{ currencySymbol }} {{ formatCurrency(calculation.originalCurrencyResult) }}</ion-label>
+              <ion-label>{{ fromCurrencySymbol }} {{ formatCurrency(calculation.originalCurrencyResult) }}</ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-label>{{ toCurrencySymbol }} {{ formatCurrency(calculation.selectedCurrencyResult) }}</ion-label>
             </ion-col>
           </ion-row>
         </ion-grid>
       </div>
       <div v-if="calculation.selectedCurrencyResultVat !== null">
-        <ion-text>KDV'li</ion-text>
+        <ion-text>{{ t('withVatCalculationTitle') }}</ion-text>
         <ion-grid>
           <ion-row>
-            <ion-col>
-              <ion-label>{{ '₺' }} {{ formatCurrency(calculation.selectedCurrencyResultVat) }}</ion-label>
-            </ion-col>
             <ion-col v-if="calculation.originalCurrencyResultVat">
-              <ion-label>{{ currencySymbol }} {{ formatCurrency(calculation.originalCurrencyResultVat) }}</ion-label>
+              <ion-label>{{ fromCurrencySymbol }} {{ formatCurrency(calculation.originalCurrencyResultVat) }}
+              </ion-label>
+            </ion-col>
+            <ion-col>
+              <ion-label>{{ toCurrencySymbol }} {{ formatCurrency(calculation.selectedCurrencyResultVat) }}</ion-label>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -36,16 +37,22 @@ import Calculation from '@/types/Calculation';
 import { computed } from 'vue';
 import { currencySymbols } from '@/constants/currency';
 import { useCurrencyFormatter } from '@/composables/useCurrencyFormatter';
+import { useI18n } from 'vue-i18n';
+import { Settings } from '@/types/Settings';
 
 const props = defineProps<{
-  calculation: Calculation | null
+  calculation: Calculation | null,
+  settings: Settings
 }>();
 
-const currencySymbol = computed(() =>
-  props.calculation?.currency
-    ? currencySymbols[props.calculation.currency] || props.calculation.currency
+const fromCurrencySymbol = computed(() =>
+  props.calculation?.fromCurrency
+    ? currencySymbols[props.calculation.fromCurrency] || props.calculation.fromCurrency
     : ''
 );
+const toCurrencySymbol = computed(() => props.calculation?.toCurrency ? currencySymbols[props.calculation?.toCurrency] || props.calculation?.toCurrency : '');
 
-const { formatCurrency } = useCurrencyFormatter();
+const { t, locale } = useI18n();
+const { formatCurrency } = useCurrencyFormatter(props.settings.maximumFractionDigits, locale.value);
+
 </script>
