@@ -33,7 +33,7 @@
   <br>
 
   <Suspense>
-    <StaticExchange color="transparent" style="box-shadow: none" />
+    <StaticExchange :settings="settings" color="transparent" style="box-shadow: none" />
 
     <template #fallback>
       <div class="ion-text-center">
