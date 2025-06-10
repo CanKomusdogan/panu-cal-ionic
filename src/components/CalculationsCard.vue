@@ -6,10 +6,10 @@
         <ion-grid>
           <ion-row>
             <ion-col v-if="calculation.originalCurrencyResult">
-              <ion-label>{{ fromCurrencySymbol }} {{ formatCurrency(calculation.originalCurrencyResult) }}</ion-label>
+              <ion-label>{{ fromCurrencySymbol }} {{ formatCurrency_(calculation.originalCurrencyResult) }}</ion-label>
             </ion-col>
             <ion-col>
-              <ion-label>{{ toCurrencySymbol }} {{ formatCurrency(calculation.selectedCurrencyResult) }}</ion-label>
+              <ion-label>{{ toCurrencySymbol }} {{ formatCurrency_(calculation.selectedCurrencyResult) }}</ion-label>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -19,11 +19,11 @@
         <ion-grid>
           <ion-row>
             <ion-col v-if="calculation.originalCurrencyResultVat">
-              <ion-label>{{ fromCurrencySymbol }} {{ formatCurrency(calculation.originalCurrencyResultVat) }}
+              <ion-label>{{ fromCurrencySymbol }} {{ formatCurrency_(calculation.originalCurrencyResultVat) }}
               </ion-label>
             </ion-col>
             <ion-col>
-              <ion-label>{{ toCurrencySymbol }} {{ formatCurrency(calculation.selectedCurrencyResultVat) }}</ion-label>
+              <ion-label>{{ toCurrencySymbol }} {{ formatCurrency_(calculation.selectedCurrencyResultVat) }}</ion-label>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -53,6 +53,8 @@ const fromCurrencySymbol = computed(() =>
 const toCurrencySymbol = computed(() => props.calculation?.toCurrency ? currencySymbols[props.calculation?.toCurrency] || props.calculation?.toCurrency : '');
 
 const { t, locale } = useI18n();
-const { formatCurrency } = useCurrencyFormatter(props.settings.maximumFractionDigits, locale.value);
+const { formatCurrency } = useCurrencyFormatter(locale.value);
+
+const formatCurrency_ = (value: number | null | undefined) => formatCurrency(props.settings.maximumFractionDigits, value);
 
 </script>

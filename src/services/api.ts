@@ -22,7 +22,7 @@ export const convertExchange = async (
     }, {
       currency: fromCurrency,
       tocurrency: toCurrency,
-      amount: (amount ?? 1).toString()
+      amount: (amount ?? 1).toLocaleString('tr-TR')
     });
 
     const exchangeNode = xml.querySelector('ExchangeItems > Exchange');
@@ -30,7 +30,7 @@ export const convertExchange = async (
       return {
         code: exchangeNode.getAttribute('Code') || '',
         buy: parseFloat((exchangeNode.getAttribute('Buy') || '0').replace(',', '.')),
-        sale: parseFloat((exchangeNode.getAttribute('Sale') || '0').replace(',', '.')),
+        sale: parseFloat((exchangeNode.getAttribute('Sale') || '0').replace(',', '.'))
       };
     }
 

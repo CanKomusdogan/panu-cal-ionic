@@ -2,18 +2,18 @@
 
   <ion-card>
     <ion-card-content>
-      <ion-input type="number" min="0" max="9007199254740991"
+      <ion-input type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*"
                  :label="(selectedCurrencySymbol === 'Au' ? t('gold') : selectedCurrencySymbol) + ` ${ t('amountInputLabel') }`"
                  label-placement="floating" fill="solid" v-model.number="amount" clear-input enterkeyhint="next" />
       <CurrencySegment v-model:selected-currency="selectedCurrency" v-model:target-currency="targetCurrency" />
       <ion-row>
         <ion-col>
-          <ion-input type="number" min="0" max="9007199254740991" :label="t('profitRateInputLabel')"
+          <ion-input type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*" :label="t('profitRateInputLabel')"
                      v-model.number="profitRate"
                      :disabled="profitRateInputDisabled" enterkeyhint="done" auto />
         </ion-col>
         <ion-col>
-          <ion-input type="number" min="0" max="9007199254740991" :label="t('profitAmountInputLabel')"
+          <ion-input type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*" :label="t('profitAmountInputLabel')"
                      v-model.number="profitAmount"
                      :disabled="profitAmountInputDisabled"
                      enterkeyhint="done"

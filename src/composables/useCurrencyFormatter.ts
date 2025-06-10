@@ -1,5 +1,5 @@
-export const useCurrencyFormatter = (maximumFractionDigits: number, locale?: string) => {
-  const formatCurrency = (value: number | null | undefined): string => {
+export const useCurrencyFormatter = (locale?: string) => {
+  const formatCurrency = (maximumFractionDigits: number, value: number | null | undefined): string => {
     if (value == null || isNaN(value)) return '-';
 
     return value.toLocaleString(locale || 'tr-TR', {

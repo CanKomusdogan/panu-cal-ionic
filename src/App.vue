@@ -46,8 +46,6 @@ onMounted(async () => {
   const savedSettings = (await Preferences.get({ key: 'settings' })).value;
   if (!savedSettings) return;
 
-  // if you judge me for this ill judge you too for judging me because of a "risk" that the
-  // fucking settings failing which is not possible unless something is very wrong
   settings.value = JSON.parse(savedSettings) as Settings;
 });
 </script>
